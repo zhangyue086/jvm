@@ -16,13 +16,13 @@ public class MyTest5 {
 
 
     interface MyParent5{
-        public static int a = new Random().nextInt(3);
+        public static int a = 6;
     }
 
 
-    interface MyChild5 extends MyParent5{
+    static class MyChild5 implements MyParent5{
 
-        public static int b =  new Random().nextInt(9);
+        public static int b =  5;
     }
 
 
