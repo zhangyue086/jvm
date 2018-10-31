@@ -1,6 +1,9 @@
 package com.shengsiyuan.jvm.classloader;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
+
 import java.util.Random;
+import java.util.function.IntBinaryOperator;
 
 /**
  * Created by admin on 2018/10/30.
@@ -11,19 +14,70 @@ import java.util.Random;
 public class MyTest5 {
 
     public static void main(String[] args) {
-        System.out.println(MyChild5.b);
+        //主动使用子类  会初始化父类
+//        System.out.println(MyChild5.b);
+
+        System.out.println(MyParent5_1.thread);
+
+
     }
 
 
-    interface MyParent5{
+
+    static class MyGrandpa{
         public static int a = 6;
+
+        public static Thread thread  = new Thread(){
+            //实例化块
+            {
+                System.out.println("MyGrandpa invoked");
+            }
+
+        };
+    }
+
+     static class MyParent5 extends MyGrandpa{
+        public static int a = 6;
+
+        public static Thread thread  = new Thread(){
+            //实例化块
+            {
+                System.out.println("MyParent5 invoked");
+            }
+
+        };
     }
 
 
-    static class MyChild5 implements MyParent5{
+     static class MyChild5 extends MyParent5{
 
         public static int b =  5;
     }
+
+
+
+    interface  MyGRandpa5_1{
+        public static Thread thread  = new Thread(){
+            //实例化块
+            {
+                System.out.println("MyGRandpa5_1 invoked");
+            }
+        };
+    }
+
+    interface   MyParent5_1 extends MyGRandpa5_1 {
+        public static Thread thread  = new Thread(){
+            //实例化块
+            {
+                System.out.println("MyParent5_1 invoked");
+            }
+        };
+    }
+
+
+
+
+
 
 
 
